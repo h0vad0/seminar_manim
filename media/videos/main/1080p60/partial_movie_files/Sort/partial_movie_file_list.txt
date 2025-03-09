@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3529212410_1839128356_94594081.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3533161469_2517269210.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3201849554_2647021887.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_417800691_175901198.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3201849554_790319335.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3670641945_3049357553.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3201849554_1414625283.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_2423612943_3330394746.mp4'
+file 'file:D:/seminar_manim/media/videos/main/1080p60/partial_movie_files/Sort/3040924799_3201849554_4272052996.mp4'
