@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Tomas/Documents/seminar_manim/media/videos/main/1080p60/partial_movie_files/Euclides/3977891868_1569652910_223132457.mp4'
+file 'file:C:/Users/Tomas/Documents/seminar_manim/media/videos/main/1080p60/partial_movie_files/Euclides/2852726489_2187961458_1306548541.mp4'
+file 'file:C:/Users/Tomas/Documents/seminar_manim/media/videos/main/1080p60/partial_movie_files/Euclides/2852726489_2470431109_2623859754.mp4'
+file 'file:C:/Users/Tomas/Documents/seminar_manim/media/videos/main/1080p60/partial_movie_files/Euclides/2852726489_2187961458_1096294058.mp4'
+file 'file:C:/Users/Tomas/Documents/seminar_manim/media/videos/main/1080p60/partial_movie_files/Euclides/2852726489_2187961458_388910091.mp4'
