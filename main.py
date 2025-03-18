@@ -169,33 +169,99 @@ class MergeSort(Scene):
         spacing = 1
 
         group.scale_to_fit_width(scene_width*0.6)
+        square_width = group[0].width
         group.center()
         self.add(group)
         self.wait()
 
-        subgroups = [group]
-        while len(subgroups[-1]) != 1:
-            halves = []
+        up_groups = [group]
+        down_groups = []
+        while len(up_groups[-1]) != 1:
 
-            for subgroup in subgroups:
-                mid = len(subgroup) // 2
-                half_l = subgroup[:mid]
-                halves.append(half_l)
-                half_r = subgroup[mid:]
-                halves.append(half_r)
-                self.play(half_l.animate.shift(LEFT*spacing), half_r.animate.shift(RIGHT*spacing))
+            for up_group in up_groups:
+                mid = len(up_group) // 2
 
-            subgroups = halves
+                if mid != 0: #lichypocet prvku
+                    down_l = up_group[:mid]
+                    down_groups.append(down_l)
+                down_r = up_group[mid:]
+                down_groups.append(down_r)
 
+                self.play(down_l.animate.shift(LEFT*spacing), down_r.animate.shift(RIGHT*spacing))
+
+            up_groups = down_groups
+            down_groups = []
             spacing = spacing/2
 
-        sorted_list = []
-        i = j = 0
+        self.wait()
+        self.play(Group(*self.mobjects).animate.shift(UP*1.5))
 
-        if left[i] < right[j]:
-            sorted_list.append(left[i])
-            i += 1
-        else:
-            sorted_list.append(right[j])
-            j += 1
+        while len(up_groups) != 1:
+            spacing = spacing*2
+            for i in range(0, len(up_groups), 2):
+                j, k = 0, 0
+                down_group = Group()
+
+                if i != len(up_groups)-1:
+                    up_l = up_groups[i]
+                    up_r = up_groups[i+1]
+                else:
+                    down = up_groups[i].copy()
+                    self.play(down.animate.shift(DOWN*1.5))
+                    down_groups.append(down)
+                    break
+
+                highlight_l = Square(color=BLUE).surround(up_l[j], buff=SMALL_BUFF)
+                highlight_r = Square(color=YELLOW).surround(up_r[k], buff=SMALL_BUFF)
+                self.play(Create(highlight_l), Create(highlight_r))
+
+                while j < len(up_l) and k < len(up_r):
+                    down_l = up_l[j].copy()
+                    down_r = up_r[k].copy()
+
+                    val_l = int(down_l.submobjects[0].text)
+                    val_r = int(down_r.submobjects[0].text)
+
+                    if j==k==0:
+                        pos = up_l[j].get_center() + DOWN*1.5 + RIGHT*spacing
+                    else:
+                        pos = down_group[-1].get_center() + RIGHT*square_width
+
+                    if  val_l <= val_r:
+                        self.play(down_l.animate.move_to(pos))
+                        down_group.add(down_l)
+                        j+=1
+                        if j < len(up_l): 
+                            self.play(highlight_l.animate.move_to(up_l[j])) 
+
+                    else:
+                        self.play(down_r.animate.move_to(pos))
+                        down_group.add(down_r)
+                        k+=1
+                        if k < len(up_r): 
+                            self.play(highlight_r.animate.move_to(up_r[k]))
+
+                for up in up_l.submobjects[j:]:     #zlepsit dodani zbytku
+                    down = up.copy()
+                    self.play(down.animate.next_to(down_group[-1], buff=0))
+                    down_group.add(down)
+                    j+=1
+                    if j < len(up_l): 
+                        self.play(highlight_l.animate.move_to(up_l[j]))
+
+                for up in up_r.submobjects[k:]:
+                    down = up.copy()
+                    self.play(down.animate.next_to(down_group[-1], buff=0))
+                    down_group.add(down)
+                    k+=1
+                    if k < len(up_r): 
+                        self.play(highlight_l.animate.move_to(up_r[k]))
+                
+                down_groups.append(down_group)
+                self.play(Uncreate(highlight_l), Uncreate(highlight_r))
+
+            self.play(FadeOut(*up_groups, shift=UP*1.5), Group(*down_groups).animate.shift(UP*1.5))
+            up_groups = down_groups 
+            down_groups = []
+
 
