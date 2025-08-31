@@ -152,7 +152,7 @@ class BinarySearch(Scene):
                 
 class MergeSort(Scene):
     def construct(self):
-        arr = [5, 3, 8, 4, 2, 7, 1, 6]
+        arr = [5, 3, 8, 4, 2, 6]
         group = Group()
 
         for index, item in enumerate(arr):
@@ -170,7 +170,7 @@ class MergeSort(Scene):
         y_spacing = 1.5
 
         group.scale_to_fit_width(scene_width*0.6)
-        square_width = group[0].width
+        square_side = group[0].width
         group.center()
         self.add(group)
         self.wait()
@@ -195,7 +195,7 @@ class MergeSort(Scene):
             x_spacing = x_spacing/2
 
         self.wait()
-        self.play(Group(*self.mobjects).animate.shift(UP*y_spacing))
+        self.play(Group(*self.mobjects).animate.shift(UP*y_spacing*square_side))
 
         while len(up_groups) != 1:
             x_spacing = x_spacing*2
@@ -208,7 +208,7 @@ class MergeSort(Scene):
                     up_r = up_groups[i+1]
                 else:
                     down = up_groups[i].copy()
-                    self.play(down.animate.shift(DOWN*y_spacing))
+                    self.play(down.animate.shift(DOWN*y_spacing*square_side))
                     down_groups.append(down)
                     break
 
@@ -224,9 +224,9 @@ class MergeSort(Scene):
                     val_r = int(down_r.submobjects[0].text)
 
                     if j==k==0:
-                        pos = up_l[j].get_center() + DOWN*y_spacing*square_width + RIGHT*x_spacing
+                        pos = up_l[j].get_center() + DOWN*y_spacing*square_side + RIGHT*x_spacing
                     else:
-                        pos = down_group[-1].get_center() + RIGHT*square_width
+                        pos = down_group[-1].get_center() + RIGHT*square_side
 
                     if  val_l <= val_r:
                         self.play(down_l.animate.move_to(pos))
@@ -261,6 +261,6 @@ class MergeSort(Scene):
                 down_groups.append(down_group)
                 self.play(Uncreate(highlight_l), Uncreate(highlight_r))
 
-            self.play(FadeOut(*up_groups, shift=UP*y_spacing), Group(*down_groups).animate.shift(UP*y_spacing))
+            self.play(FadeOut(*up_groups, shift=UP*y_spacing*square_side), Group(*down_groups).animate.shift(UP*y_spacing*square_side))
             up_groups = down_groups 
             down_groups = []
