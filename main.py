@@ -166,7 +166,8 @@ class MergeSort(Scene):
             group.add(square)
 
         scene_width = 14 + 2/9
-        spacing = 1
+        x_spacing = 1
+        y_spacing = 1.5
 
         group.scale_to_fit_width(scene_width*0.6)
         square_width = group[0].width
@@ -187,17 +188,17 @@ class MergeSort(Scene):
                 down_r = up_group[mid:]
                 down_groups.append(down_r)
 
-                self.play(down_l.animate.shift(LEFT*spacing), down_r.animate.shift(RIGHT*spacing))
+                self.play(down_l.animate.shift(LEFT*x_spacing), down_r.animate.shift(RIGHT*x_spacing))
 
             up_groups = down_groups
             down_groups = []
-            spacing = spacing/2
+            x_spacing = x_spacing/2
 
         self.wait()
-        self.play(Group(*self.mobjects).animate.shift(UP*1.5))
+        self.play(Group(*self.mobjects).animate.shift(UP*y_spacing))
 
         while len(up_groups) != 1:
-            spacing = spacing*2
+            x_spacing = x_spacing*2
             for i in range(0, len(up_groups), 2):
                 j, k = 0, 0
                 down_group = Group()
@@ -207,7 +208,7 @@ class MergeSort(Scene):
                     up_r = up_groups[i+1]
                 else:
                     down = up_groups[i].copy()
-                    self.play(down.animate.shift(DOWN*1.5))
+                    self.play(down.animate.shift(DOWN*y_spacing))
                     down_groups.append(down)
                     break
 
@@ -223,7 +224,7 @@ class MergeSort(Scene):
                     val_r = int(down_r.submobjects[0].text)
 
                     if j==k==0:
-                        pos = up_l[j].get_center() + DOWN*1.5 + RIGHT*spacing
+                        pos = up_l[j].get_center() + DOWN*y_spacing*square_width + RIGHT*x_spacing
                     else:
                         pos = down_group[-1].get_center() + RIGHT*square_width
 
@@ -260,8 +261,6 @@ class MergeSort(Scene):
                 down_groups.append(down_group)
                 self.play(Uncreate(highlight_l), Uncreate(highlight_r))
 
-            self.play(FadeOut(*up_groups, shift=UP*1.5), Group(*down_groups).animate.shift(UP*1.5))
+            self.play(FadeOut(*up_groups, shift=UP*y_spacing), Group(*down_groups).animate.shift(UP*y_spacing))
             up_groups = down_groups 
             down_groups = []
-
-
